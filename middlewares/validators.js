@@ -1,43 +1,11 @@
-const { Joi, celebrate } = require('celebrate');
-const validator = require('validator');
+const { celebrate, Joi } = require('celebrate');
+const { isURL } = require('validator');
 
-const isURL = (v) => {
-  const result = validator.isURL(v, { require_protocol: true });
-  if (result) {
-    return v;
-  }
-  throw new Error('Неверный формат ссылки.');
-};
-
-const validateCreateCard = celebrate({
+const createUserValidation = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().custom(isURL),
-  }),
-});
-
-const validateCardId = celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24),
-  }),
-});
-
-const validateUserId = celebrate({
-  params: Joi.object().keys({
-    userId: Joi.string().hex().length(24),
-  }),
-});
-
-const validateUpdateProfile = celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    about: Joi.string().required().min(2).max(30),
-  }),
-});
-
-const validateUpdateAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().custom(isURL),
+    name: Joi.string().min(2).max(30).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required(),
   }),
 });
 
@@ -58,12 +26,57 @@ const validateSignIn = celebrate({
   }),
 });
 
+const updateProfileValidation = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30).required(),
+    email: Joi.string().email().required(),
+  }),
+});
+
+const getMoviesValidation = celebrate({
+  body: Joi.object,
+});
+
+const deleteMovieValidation = celebrate({
+  params: Joi.object().keys({
+    moviesId: Joi.string().length(24).hex(),
+  }),
+});
+
+const createMovieValidation = celebrate({
+  body: Joi.object().keys({
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    thumbnail: Joi.string().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().required().custom((value, helpers) => {
+      if (isURL(value)) {
+        return value;
+      }
+      return helpers.message('Поле \'image\' заполнено не некорректно.');
+    }),
+    trailer: Joi.string().required().custom((value, helpers) => {
+      if (isURL(value)) {
+        return value;
+      }
+      return helpers.message('Поле \'trailer\' заполнено не некорректно.');
+    }),
+
+    owner: Joi.string().length(24).hex(),
+    movieId: Joi.string().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+  }),
+});
+
 module.exports = {
-  validateCreateCard,
-  validateCardId,
-  validateUserId,
-  validateUpdateProfile,
-  validateUpdateAvatar,
+  createUserValidation,
   validateSignUp,
   validateSignIn,
+  updateProfileValidation,
+  getMoviesValidation,
+  deleteMovieValidation,
+  createMovieValidation,
 };

@@ -11,7 +11,6 @@ const { requestLogger, errorLogger } = require('./middlewares/errorloggers');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/error');
 const { createUser, login, signOut } = require('./controllers/users');
-
 const userRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 
@@ -29,7 +28,7 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 1000,
 });
 
 app.use(cors({
