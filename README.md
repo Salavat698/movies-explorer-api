@@ -14,9 +14,8 @@
 `npm run dev` — запускает сервер с hot-reload
 
 ## Можно обратиться по домену
-метод get  https://slt116.nomoredomains.club//users/me - вернет всех пользователей
-метод patch  https://slt116.nomoredomains.club/users/me - заменит данные юзера
-
-метод get  https://slt116.nomoredomains.club/movies - вернет всех  видео
-метод post  https://slt116.nomoredomains.club/movies - добавить видео
-метод delete  https://slt116.nomoredomains.club/movies/:moviesId - удалить  видео
+# метод get  https://slt116.nomoredomains.club//users/me — вернет всех пользователей
+# метод patch  https://slt116.nomoredomains.club/users/me —заменит данные юзера
+# метод get  https://slt116.nomoredomains.club/movies — вернет всех  видео
+# метод post  https://slt116.nomoredomains.club/movies — добавить видео
+# метод delete  https://slt116.nomoredomains.club/movies/:moviesId — удалить  видео

@@ -8,7 +8,7 @@ const { errors } = require('celebrate');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/errorloggers');
-const auth = require('./middlewares/auth');
+const auth = require('./routes/auth');
 const errorHandler = require('./middlewares/error');
 const { createUser, login, signOut } = require('./controllers/users');
 const userRouter = require('./routes/users');
@@ -19,7 +19,8 @@ const app = express();
 const NotFoundError = require('./errors/NotFoundError');
 const { validateSignUp, validateSignIn } = require('./middlewares/validators');
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+const mondoDbUrl = 'mongodb://localhost:27017/bitfilmsdb';
+mongoose.connect(mondoDbUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -43,12 +44,12 @@ app.use(cors({
   credentials: true,
 }));
 app.use(helmet());
-app.use(limiter);
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(requestLogger); // подключаем логгер запросов
-
+app.use(limiter);
 app.post('/signup', validateSignUp, createUser);
 app.post('/signin', validateSignIn, login);
 
