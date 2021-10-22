@@ -38,8 +38,6 @@ app.use(cors({
     'http://slt116.nomoredomains.monster',
     'http://localhost:3000',
     'https://localhost:3000',
-    'http://84.201.134.195',
-    'https://84.201.134.195',
   ],
   credentials: true,
 }));
@@ -49,6 +47,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(requestLogger); // подключаем логгер запросов
+
 app.use(limiter);
 app.post('/signup', validateSignUp, createUser);
 app.post('/signin', validateSignIn, login);
