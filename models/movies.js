@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { isURL } = require('validator');
+// const { isURL } = require('validator');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -25,44 +25,37 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate(v) {
-      if (!isURL(v)) {
-        throw new Error('Неправильный формат url');
-      }
-    },
   },
-  trailer: {
-    type: String,
-    required: true,
-    validate(v) {
-      if (!isURL(v)) {
-        throw new Error('Неправильный формат url');
-      }
-    },
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-    validate(v) {
-      if (!isURL(v)) {
-        throw new Error('Неправильный формат url');
-      }
-    },
-  },
-  owner: {
+  trailerLink: {
     type: String,
     required: true,
   },
-  movieId: {
-    type: String,
-    required: true,
-  },
-
+  // thumbnail: {
+  //   type: String,
+  //   required: true,
+  //   validate(v) {
+  //     if (!isURL(v)) {
+  //       throw new Error('Неправильный формат url');
+  //     }
+  //   },
+  // },
+  // owner: {
+  //   type: String,
+  //   required: true,
+  // },
   nameRU: {
     type: String,
     required: true,
   },
   nameEN: {
+    type: String,
+    required: true,
+  },
+  id: {
+    type: Number,
+    required: true,
+  },
+  owner: {
     type: String,
     required: true,
   },

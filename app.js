@@ -14,7 +14,7 @@ const { createUser, login, signOut } = require('./controllers/users');
 const userRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3003 } = process.env;
 const app = express();
 const NotFoundError = require('./errors/NotFoundError');
 const { validateSignUp, validateSignIn } = require('./middlewares/validators');
